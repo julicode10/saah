@@ -112,7 +112,7 @@ function eliminarDocente(id){
     });
 }
 
-function editarDocente(id, documento, nombres, apellidos, correo, telefono){
+function editarDocente(id){
     $.ajax({
         type: "POST",
         url: "../../../saah/ajax/docenteAjax.php",

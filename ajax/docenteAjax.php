@@ -3,10 +3,6 @@ require_once '../controlador/DocenteControlador.php';
 
 $method = $_POST['method'];
 
-function validarCampos(){
-
-}
-
 $objDocente = new DocenteControlador();
 if(isset($_POST['codDocente'])){
     $objDocente->codDocente = $_POST['codDocente'];
@@ -39,7 +35,7 @@ switch ($method)
                             <td>'.$list['correo'].'</td>
                             <td>'.$list['telefono'].'</td>
                             <td>
-                                <a href="#" class="btn btn-success" onclick="editarDocente('.$list['id'].',\''.$list['documento'].'\',\''.$list['nombres'].'\',\''.$list['apellidos'].'\',\''.$list['correo'].'\',\''.$list['telefono'].'\')"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="btn btn-success" onclick="editarDocente('.$list['id'].')"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" onclick="eliminarDocente('.$list['id'].')"><i class="fas fa-trash"></i></button>
@@ -49,9 +45,9 @@ switch ($method)
         echo $tabla;
         break;
     case 'e':
-        $lists = $objDocente->editarDocenteControlador($objDocente->codDocente);
-        foreach ($lists as $list){
-            echo json_encode($list);
+        $res = $objDocente->editarDocenteControlador($objDocente->codDocente);
+        foreach ($res as $val){
+            echo json_encode($val);
         }
         break;
     case 'a':
