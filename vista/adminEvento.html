@@ -1,0 +1,131 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header p-4">
+                    <h1 class="card-title text-orange text-lg-center">Adminstrar eventos</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Código <span class="text-orange">*</span></label>
+                                <input type="text" class="form-control" placeholder="Ingrese código del grupo ...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Duración <span class="text-orange">*</span></label>
+                                <input type="number" class="form-control"
+                                       placeholder="Ingrese la duración del evento (en horas) ...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Cantidad estudiantes <span class="text-orange">*</span></label>
+                                <input type="number" class="form-control"
+                                       placeholder="Ingrese la cantidad de estudiantes del grupo ...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- radio -->
+                            <label>Seleccione los grupos que van a asistir (opcional)</label>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">GR6367734</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">GR536645766</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">GR5457454</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label">GR6346644</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <button type="button" class="btn btn-outline-warning ">Guardar</button>
+                    </div>
+                    <!-- tabla eventos -->
+                    <table id="table-eventos" class="table table-bordered table-striped mt-5">
+                        <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Duración(horas)</th>
+                            <th>Objetivo</th>
+                            <th>Grupos asistentes</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>676744</td>
+                            <td>2</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ea earum et
+                                excepturi incidunt odio sed ut. Ad, adipisci alias, aliquid aspernatur corporis dolorem
+                                eius, excepturi laborum nulla pariatur tempora.
+                            </td>
+                            <td>GR6367734</td>
+                            <td>
+                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>764634</td>
+                            <td>4</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, architecto at atque
+                                beatae cumque dolores, ea eaque impedit laboriosam libero magnam modi molestiae quae
+                                quam quia, recusandae sed sit ut!
+                            </td>
+                            <td>GR536645766</td>
+                            <td>
+                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7477455</td>
+                            <td>1</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, fuga mollitia odit
+                                officiis quae quidem ut vel velit voluptate. Assumenda, culpa dolor eos est laboriosam
+                                maiores perspiciatis provident tempora voluptatem.
+                            </td>
+                            <td></td>
+                            <td>
+                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- end tabla eventos -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>

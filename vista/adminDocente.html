@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header p-4">
+                    <h1 class="card-title text-orange text-lg-center">Administrar Docentes</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Documento<span class="text-orange">*</span></label>
+                                <input type="text" class="form-control" name="documento" id="documento"
+                                       placeholder="Ingrese número de documento ...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Nombres <span class="text-orange">*</span></label>
+                                <input type="text" class="form-control" name="nombres" id="nombres"
+                                       placeholder="Ingrese nombres ...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Apellidos<span class="text-orange">*</span></label>
+                                <input type="text" class="form-control" name="apellidos" id="apellidos"
+                                       placeholder="Ingrese apellidos ...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Correo electrónico <span class="text-orange">*</span></label>
+                                <input type="email" name="correo" id="correo" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="text" name="telefono" id="telefono" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center mb-5">
+                        <button type="button" id="btn-submit" class="btn btn-outline-warning" onclick="guardarDocente()">Guardar
+                        </button>
+                        <button type="button" id="btn-clear" class="btn btn-outline-danger ml-2" onclick="limpiarFRM()">Limpiar
+                        </button>
+                    </div>
+                    <table id="table-docentes" class="table table-bordered table-striped mt-5">
+                        <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Correo Electrónico</th>
+                            <th>Teléfono</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+<script>
+    $(document).ready(function () {
+        listarDocentes();
+    });
+</script>
