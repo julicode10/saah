@@ -19,7 +19,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Número del grupo <span class="text-orange">*</span></label>
-                                <input type="text" name="numero_grupo" id="numero_grupo" class="form-control" placeholder="Ingrese número del grupo ...">
+                                <input type="text" name="numero_grupo" id="numero_grupo" maxlength="4" class="form-control" placeholder="Ingrese número del grupo ...">
                             </div>
                         </div>
                     </div>
@@ -27,13 +27,16 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Cantidad estudiantes <span class="text-orange">*</span></label>
-                                <input type="number" class="form-control" name="cantidad_estudiantes" id="cantidad_estudiantes"
+                                <input type="number" class="form-control" name="cantidad_estudiantes" maxlength="3" id="cantidad_estudiantes"
                                     placeholder="Ingrese la cantidad de estudiantes del grupo ...">
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center align-items-center">
-                        <button type="button" class="btn btn-outline-warning ">Guardar</button>
+                    <div class="row justify-content-center align-items-center mb-5">
+                        <button type="button" id="btn-submit" class="btn btn-outline-warning" onclick="guardarGrupo()">Guardar
+                        </button>
+                        <button type="button" id="btn-clear" class="btn btn-outline-danger ml-2" onclick="limpiarFRMGrupo()">Limpiar
+                        </button>
                     </div>
                     <!-- tabla aulas -->
                     <table id="table-grupos" class="table table-bordered table-striped mt-5">
@@ -59,3 +62,8 @@
     </div>
     <!-- /.row -->
 </div>
+<script>
+    $(document).ready(function () {
+        listarGrupos();
+    });
+</script>

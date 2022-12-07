@@ -13,7 +13,7 @@ function ch(urlHijo) {
                 //datatables('#table-aulas');
             }
             if(urlHijo === "vista/adminGrupo.html"){
-                datatables('#table-grupos');
+                //datatables('#table-grupos');
             }
             if(urlHijo === "vista/adminDocente.html"){
                 //datatables('#table-docentes');
@@ -336,3 +336,129 @@ function eliminarAula(id){
         }
     });
 }
+
+/** funciones para grupos */
+function validarFormGrupo(){
+    if($("#codigo").val() == ""){
+        toastr.warning("El código no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#codigo").focus(); 
+        return false;
+    }
+    if($("#numero_grupo").val() == ""){
+        toastr.warning("El campo número grupo no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#numero_grupo").focus();
+        return false;
+    }
+    if($("#cantidad_estudiantes").val() == ""){
+        toastr.warning("El campo cantidad de estudiantes no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#cantidad_estudiantes").focus();
+        return false;
+    }
+    return true;
+}
+
+function limpiarFRMGrupo(){
+    limpiarFRM('btn-submit', [
+        'codigo', 'numero_grupo', 'cantidad_estudiantes'
+    ],'guardarGrupo()')
+    listarGrupos()
+}
+
+function guardarGrupo(){ 
+    if(validarFormGrupo()){
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/grupoAjax.php",
+            data: {
+                "codigo": $('#codigo').val(),
+                "numero_grupo": $('#numero_grupo').val(),
+                "cantidad_estudiantes": $('#cantidad_estudiantes').val(),
+                "method": "g"
+            },
+            success: function (resp){
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMGrupo()
+                listarGrupos()
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarGrupos();
+            }
+        });
+    }
+}
+
+function listarGrupos(){
+    listarRecurso("../../../saah/ajax/grupoAjax.php");
+}
+
+function editarGrupo(id){
+    
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/grupoAjax.php",
+        data: {
+            "id": id,
+            "method": "e"
+        },
+        success: function (resp){
+            let grupo = JSON.parse(resp);
+            document.querySelector('#btn-submit').innerHTML = 'Actualizar';
+            $('#btn-submit').removeAttr("onclick");
+            $('#btn-submit').attr("onclick", "actualizarGrupo(" + grupo.id+")");
+            $('#codigo').val(grupo.codigo)
+            $('#numero_grupo').val(grupo.numero_grupo)
+            $('#cantidad_estudiantes').val(grupo.cantidad_estudiantes)
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function actualizarGrupo(id){
+    if(validarFormGrupo()) {
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/grupoAjax.php",
+            data: {
+                "codigo": $('#codigo').val(),
+                "numero_grupo": $('#numero_grupo').val(),
+                "cantidad_estudiantes": $('#cantidad_estudiantes').val(),
+                "id": id,
+                "method": "a"
+            },
+            success: function (resp) {
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMGrupo()
+                listarGrupos()
+            },
+            fail: function (request, status, error) {
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarGrupos()
+            }
+        });
+    }
+}
+
+function eliminarGrupo(id){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/grupoAjax.php",
+        data: {
+            "id": id,
+            "method": "d"
+        },
+        success: function (resp){
+            toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+            limpiarFRMGrupo()
+            listarGrupos()
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            listarGrupos()
+        }
+    });
+}
+
+
