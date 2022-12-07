@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-
                 <div class="card-header p-4">
                     <h1 class="card-title text-orange text-lg-center">Administrar aulas</h1>
                 </div>
@@ -11,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Número Aula <span class="text-orange">*</span></label>
-                                <input type="number" class="form-control" placeholder="Ingrese número de aula ...">
+                                <input type="number" name="numero_aula" id="numero_aula" class="form-control" placeholder="Ingrese número de aula ...">
                             </div>
                         </div>
                     </div>
@@ -19,13 +18,13 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Bloque <span class="text-orange">*</span></label>
-                                <select class="form-control">
+                                <select class="form-control" name="bloque" id="bloque">
                                     <option selected>Seleccione Bloque</option>
-                                    <option value="k">K</option>
-                                    <option value="l">L</option>
-                                    <option value="m">M</option>
-                                    <option value="n">N</option>
-                                    <option value="o">O</option>
+                                    <option value="K">K</option>
+                                    <option value="L">L</option>
+                                    <option value="M">M</option>
+                                    <option value="N">N</option>
+                                    <option value="O">O</option>
                                 </select>
                             </div>
                         </div>
@@ -34,13 +33,16 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Descripción</label>
-                                <textarea class="form-control" rows="3"
-                                          placeholder="Ingrese una descripción..."></textarea>
+                                <textarea class="form-control" rows="3" name="descripcion" id="descripcion"
+                                    placeholder="Ingrese una descripción..."></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center align-items-center">
-                        <button type="button" class="btn btn-outline-warning ">Guardar</button>
+                    <div class="row justify-content-center align-items-center mb-5">
+                        <button type="button" id="btn-submit" class="btn btn-outline-warning" onclick="guardarAula()">Guardar
+                        </button>
+                        <button type="button" id="btn-clear" class="btn btn-outline-danger ml-2" onclick="limpiarFRMAula()">Limpiar
+                        </button>
                     </div>
                     <!-- tabla aulas -->
                     <table id="table-aulas" class="table table-bordered table-striped mt-5">
@@ -54,61 +56,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>101</td>
-                            <td>N</td>
-                            <td>Aula de informatica</td>
-                            <td>
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>203</td>
-                            <td>K</td>
-                            <td>Aula centro de idiomas</td>
-                            <td>
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>205</td>
-                            <td>M</td>
-                            <td>Laboratorio de Redes</td>
-                            <td>
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>304</td>
-                            <td>L</td>
-                            <td>Aula convencional</td>
-                            <td>
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>207</td>
-                            <td>M</td>
-                            <td>Salon con computadores</td>
-                            <td>
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                     <!-- end tabla productos -->
@@ -121,3 +68,8 @@
     </div>
     <!-- /.row -->
 </div>
+<script>
+    $(document).ready(function () {
+        listarAulas();
+    });
+</script>

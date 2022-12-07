@@ -1,8 +1,8 @@
 <?php
 
-require_once "clsConexion.php";
+require_once "ClsConexion.php";
 
-class docenteModelo extends  PDODB
+class DocenteModelo extends  PDODB
 {
     protected $codDocente;
     protected $documento;
@@ -11,7 +11,7 @@ class docenteModelo extends  PDODB
     protected $correo;
     protected $telefono;
 
-    protected static function guardarDocenteModelo(docenteModelo $docente)
+    protected static function guardarDocenteModelo(DocenteModelo $docente)
     {
         $con = new PDODB();
         $sql = "INSERT INTO docentes (documento, nombres, apellidos, correo, telefono) 
@@ -48,12 +48,12 @@ class docenteModelo extends  PDODB
         $res->execute();
         $data = array();
         while ($row = $res->fetch(PDO::FETCH_ASSOC)){
-             array_push($data, $row);
+            array_push($data, $row);
         }
         return $data;
     }
 
-    protected static function actualizarDocenteModelo(docenteModelo $docente)
+    protected static function actualizarDocenteModelo(DocenteModelo $docente)
     {
         $con = new PDODB();
         $sql = "UPDATE docentes SET documento = :documento,nombres = :nombres, apellidos = :apellidos, correo = :correo,telefono = :telefono WHERE id = :id";

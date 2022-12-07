@@ -1,7 +1,7 @@
 <?php
-require_once "../modelo/docenteModelo.php";
+require_once "../modelo/DocenteModelo.php";
 
-class DocenteControlador extends docenteModelo
+class DocenteControlador extends DocenteModelo
 {
     public  $codDocente;
     public $documento;
@@ -12,26 +12,25 @@ class DocenteControlador extends docenteModelo
 
     public function guardarDocenteControlador(DocenteControlador $datos)
     {
-
-        return docenteModelo::guardarDocenteModelo($datos);
+        return DocenteModelo::guardarDocenteModelo($datos);
     }
     public function listarDocenteControlador()
     {
-        return docenteModelo::listarDocentesModelo();
+        return DocenteModelo::listarDocentesModelo();
     }
 
     public function editarDocenteControlador($codDocente)
     {
-        return docenteModelo::editarDocenteModelo($codDocente);
+        return DocenteModelo::editarDocenteModelo($codDocente);
     }
 
     public function actualizarDocenteControlador(DocenteControlador $datos)
     {
-        return docenteModelo::actualizarDocenteModelo($datos);
+        return DocenteModelo::actualizarDocenteModelo($datos);
     }
 
     public function eliminarDocenteControlador($codDocente)
     {
-        return docenteModelo::eliminarDocenteModelo($codDocente);
+        return DocenteModelo::eliminarDocenteModelo($codDocente);
     }
 }

@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS saah 
 -- phpMyAdmin SQL Dump
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
@@ -31,7 +32,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `aulas` (
   `id` int(11) NOT NULL,
   `numero_aula` varchar(4) NOT NULL,
-  `bloque` varchar(4) NOT NULL,
+  `bloque` enum('K','L','M', 'N','O', 'P') NOT NULL,
   `descripción` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

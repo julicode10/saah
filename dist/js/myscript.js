@@ -10,7 +10,7 @@ function ch(urlHijo) {
         success: function(datosP){
             $('#qa').html(datosP);
             if(urlHijo === "vista/adminAula.html"){
-                datatables('#table-aulas');
+                //datatables('#table-aulas');
             }
             if(urlHijo === "vista/adminGrupo.html"){
                 datatables('#table-grupos');
@@ -28,28 +28,50 @@ function ch(urlHijo) {
     });
 }
 
+/*funciones comunes */
 function datatables(id) {
     $(id).DataTable().destroy();
     $(id).DataTable();
 };
 
-function limpiarInputs(){
-    $('#documento').val('')
-    $('#nombres').val('')
-    $('#apellidos').val('')
-    $('#correo').val('')
-    $('#telefono').val('')
+function limpiarInputs(values){
+    if (values.length !== 0){
+        values.forEach(function(val) {
+            $(`#${val}`).val('')
+        })
+    } 
+}   
+
+function limpiarFRM(button, inputs, event){
+    limpiarInputs(inputs)
+    document.querySelector(`#${button}`).innerHTML = 'Guardar';
+    $(`#${button}`).removeAttr("onclick");
+    $(`#${button}`).attr("onclick", event);
 }
 
-function limpiarFRM(){
-    limpiarInputs()
-    document.querySelector('#btn-submit').innerHTML = 'Guardar';
-    $('#btn-submit').removeAttr("onclick");
-    $('#btn-submit').attr("onclick", "guardarDocente()");
+function listarRecurso(url){
+    if(url != null || url != undefined){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                "method": "l"
+            },
+            success: function (resp){
+                $('tbody').text('');
+                $('tbody').html(resp);
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            }
+        });
+    }
 }
 
-function guardarDocente(){
-    if(validaForm()){
+/** funciones para docentes */
+
+function guardarDocente(){ 
+    if(validarFormDocente()){
         $.ajax({
             type: "POST",
             url: "../../../saah/ajax/docenteAjax.php",
@@ -63,7 +85,7 @@ function guardarDocente(){
             },
             success: function (resp){
                 toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
-                limpiarFRM()
+                limpiarFRMDocente()
                 listarDocentes()
             },
             fail: function (request, status, error){
@@ -75,21 +97,15 @@ function guardarDocente(){
 
 }
 
+function limpiarFRMDocente(){
+    limpiarFRM('btn-submit', [
+        'documento', 'nombres', 'apellidos', 'correo', 'telefono'
+    ],'guardarDocente()')
+    listarDocentes()
+}
+
 function listarDocentes(){
-    $.ajax({
-        type: "POST",
-        url: "../../../saah/ajax/docenteAjax.php",
-        data: {
-            "method": "l"
-        },
-        success: function (resp){
-            $('tbody').text('');
-            $('tbody').html(resp);
-        },
-        fail: function (request, status, error){
-            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
-        }
-    });
+    listarRecurso("../../../saah/ajax/docenteAjax.php");
 }
 
 function eliminarDocente(id){
@@ -102,7 +118,7 @@ function eliminarDocente(id){
         },
         success: function (resp){
             toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
-            limpiarFRM()
+            limpiarFRMDocente()
             listarDocentes()
         },
         fail: function (request, status, error){
@@ -138,7 +154,7 @@ function editarDocente(id){
 }
 
 function actualizarDocente(id){
-    if(validaForm()) {
+    if(validarFormDocente()) {
         $.ajax({
             type: "POST",
             url: "../../../saah/ajax/docenteAjax.php",
@@ -153,7 +169,7 @@ function actualizarDocente(id){
             },
             success: function (resp) {
                 toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
-                limpiarFRM()
+                limpiarFRMDocente()
                 listarDocentes()
             },
             fail: function (request, status, error) {
@@ -163,7 +179,7 @@ function actualizarDocente(id){
         });
     }
 }
-function validaForm(){
+function validarFormDocente(){
     if($("#documento").val() == ""){
         toastr.warning("El campo documento no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
         $("#documento").focus();       // Esta función coloca el foco de escritura del usuario en el campo Nombre directamente.
@@ -197,4 +213,126 @@ function validaForm(){
         return false;
     }
     return true; // Si todo está correcto
+}
+
+/** funciones para aulas */
+
+function validarFormAula(){
+    if($("#numero_aula").val() == ""){
+        toastr.warning("El número de aula no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#numero_aula").focus();       // Esta función coloca el foco de escritura del usuario en el campo Nombre directamente.
+        return false;
+    }
+    if($("#bloque").val() == ""){
+        toastr.warning("El campo bloque no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#bloque").focus();
+        return false;
+    }
+    return true;
+}
+
+function limpiarFRMAula(){
+    limpiarFRM('btn-submit', [
+        'numero_aula', 'bloque', 'descripcion'
+    ],'guardarAula()')
+    listarAulas()
+}
+
+function guardarAula(){ 
+    if(validarFormAula()){
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/aulaAjax.php",
+            data: {
+                "numero_aula": $('#numero_aula').val(),
+                "bloque": $('#bloque').val(),
+                "descripcion": $('#descripcion').val(),
+                "method": "g"
+            },
+            success: function (resp){
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMAula()
+                listarAulas()
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarAulas();
+            }
+        });
+    }
+}
+
+function listarAulas(){
+    listarRecurso("../../../saah/ajax/aulaAjax.php");
+}
+
+function editarAula(id){
+    
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/aulaAjax.php",
+        data: {
+            "codAula": id,
+            "method": "e"
+        },
+        success: function (resp){
+            let aula = JSON.parse(resp);
+            document.querySelector('#btn-submit').innerHTML = 'Actualizar';
+            $('#btn-submit').removeAttr("onclick");
+            $('#btn-submit').attr("onclick", "actualizarAula(" + aula.id+")");
+            $('#numero_aula').val(aula.numero_aula)
+            
+            $("#bloque option[value="+ aula.bloque +"]").attr("selected",true);
+            $('#bloque').val(aula.bloque)
+            $('#descripcion').val(aula.descripcion)
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function actualizarAula(id){
+    if(validarFormAula()) {
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/aulaAjax.php",
+            data: {
+                "numero_aula": $('#numero_aula').val(),
+                "bloque": $('#bloque').val(),
+                "descripcion": $('#descripcion').val(),
+                "codAula": id,
+                "method": "a"
+            },
+            success: function (resp) {
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMAula()
+                listarAulas()
+            },
+            fail: function (request, status, error) {
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarAulas()
+            }
+        });
+    }
+}
+
+function eliminarAula(id){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/aulaAjax.php",
+        data: {
+            "codAula": id,
+            "method": "d"
+        },
+        success: function (resp){
+            toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+            limpiarFRMAula()
+            listarAulas()
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            listarAulas()
+        }
+    });
 }
