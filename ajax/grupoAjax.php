@@ -67,6 +67,17 @@ switch ($method)
             echo "No fue eliminado.";
         }
         break;
+    case 'i': //select items
+        $lists = $objGrupo->listarGrupoControlador();
+        $items = '';
+        foreach ($lists as $list){
+            $items.= '<div class="form-check">
+                        <input class="form-check-input" name="grupos[]" id="grupos" type="checkbox">
+                        <label for="'.$list['codigo'].'" class="form-check-label">'.$list['codigo'] .' - '.$list['numero_grupo'] .'</label>
+                    </div>';  
+        }
+        echo $items;
+        break;
     default:
         echo "Acción no encontrada.";
         break;

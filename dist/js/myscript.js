@@ -461,4 +461,23 @@ function eliminarGrupo(id){
     });
 }
 
+function listarSelectGrupos(){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/grupoAjax.php",
+        data: {
+            "method": "i"
+        },
+        success: function (resp){
+            $('.section-form-grupos').text('');
+            $('.section-form-grupos').html(resp);
+        },
+        fail: function (request, status, error){
+            $('.section-form-grupos').text('');
+            $('.section-form-grupos').html('No se encontraron grupos');
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
 
