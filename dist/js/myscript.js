@@ -461,24 +461,7 @@ function eliminarGrupo(id){
     });
 }
 
-function listarSelectGrupos(){
-    $.ajax({
-        type: "POST",
-        url: "../../../saah/ajax/grupoAjax.php",
-        data: {
-            "method": "i"
-        },
-        success: function (resp){
-            $('.section-form-grupos').text('');
-            $('.section-form-grupos').html(resp);
-        },
-        fail: function (request, status, error){
-            $('.section-form-grupos').text('');
-            $('.section-form-grupos').html('No se encontraron grupos');
-            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
-        }
-    });
-}
+
 
 /** funciones para materias */
 function validarFormMateria(){
@@ -600,6 +583,133 @@ function eliminarMateria(id){
         fail: function (request, status, error){
             toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
             listarMaterias()
+        }
+    });
+}
+
+/** funciones para evento */
+
+function listarSelectGrupos(){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/grupoAjax.php",
+        data: {
+            "method": "i"
+        },
+        success: function (resp){
+            $('.section-form-grupos').text('');
+            $('.section-form-grupos').html(resp);
+        },
+        fail: function (request, status, error){
+            $('.section-form-grupos').text('');
+            $('.section-form-grupos').html('No se encontraron grupos');
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function validarFormEvento(){
+    if($("#codigo").val() == ""){
+        toastr.warning("El código del evento no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#codigo").focus();       // Esta función coloca el foco de escritura del usuario en el campo Nombre directamente.
+        return false;
+    }
+    if($("#duracion").val() == ""){
+        toastr.warning("El campo duración no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#duracion").focus();
+        return false;
+    }
+    if($("#objetivo").val() == ""){
+        toastr.warning("El campo objetivo horas no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#objetivo").focus();
+        return false;
+    }
+    if(
+        $("input[name='grupos[]']:checked").map(function () {
+            return this.value;
+        }).get() == ""
+    ){
+        toastr.warning("debe seleccionar por lo menos un grupo", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#objetivo").focus();
+        return false;
+    }
+    return true;
+}
+
+function limpiarFRMEvento(){
+    limpiarFRM('btn-submit', [
+        'codigo', 'duracion', 'objetivo'
+    ],'guardarEvento()')
+    listarEventos()
+}
+
+function guardarEvento(){ 
+    if(validarFormEvento()){
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/eventoAjax.php",
+            data: {
+                "codigo": $('#codigo').val(),
+                "duracion": $('#duracion').val(),
+                "objetivo": $('#objetivo').val(),
+                "grupos": $("input[name='grupos[]']:checked").map(function () {
+                    return this.value;
+                }).get(),
+                "method": "g"
+            },
+            success: function (resp){
+                console.log(resp)
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMEvento()
+                listarEventos()
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarEventos();
+            }
+        });
+    }
+}
+
+function listarEventos(){
+    listarRecurso("../../../saah/ajax/eventoAjax.php");
+}
+
+
+/** funciones para horario */
+
+function listarSelectAulas(){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/aulaAjax.php",
+        data: {
+            "method": "s"
+        },
+        success: function (resp){
+            $("#aula").empty();
+            $('#aula').append('<option value="">Seleccione el aula</option>');
+            $("#aula").append(resp);
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function listadoSelectGrupos(){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/grupoAjax.php",
+        data: {
+            "method": "s"
+        },
+        success: function (resp){
+            $("#grupo").empty();
+            $('#grupo').append('<option value="">Seleccione el grupo</option>');
+            $("#grupo").append(resp);
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
         }
     });
 }

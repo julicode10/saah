@@ -72,11 +72,19 @@ switch ($method)
         $items = '';
         foreach ($lists as $list){
             $items.= '<div class="form-check">
-                        <input class="form-check-input" name="grupos[]" id="grupos" type="checkbox">
-                        <label for="'.$list['codigo'].'" class="form-check-label">'.$list['codigo'] .' - '.$list['numero_grupo'] .'</label>
+                        <input class="form-check-input" name="grupos[]" id="grupos-'.$list['codigo'].'" value="'.$list['id'].'" type="checkbox">
+                        <label for="grupos-'.$list['codigo'].'" class="form-check-label">'.$list['codigo'] .' - '.$list['numero_grupo'] .'</label>
                     </div>';  
         }
         echo $items;
+        break;
+    case 's':
+        $lists = $objGrupo->listarGrupoControlador();
+        $tabla = '';
+        foreach ($lists as $list){
+            $tabla.= '<option  value="'.$list['id'].'">'.$list['codigo'] .' - '.$list['numero_grupo'] .'</option>';  
+        }
+        echo $tabla;
         break;
     default:
         echo "Acción no encontrada.";

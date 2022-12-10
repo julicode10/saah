@@ -67,6 +67,14 @@ switch ($method)
             echo "No fue eliminado.";
         }
         break;
+    case 's':
+        $lists = $objAula->listarAulaControlador();
+        $tabla = '';
+        foreach ($lists as $list){
+            $tabla.= '<option  value="'.$list['id'].'">'.$list['bloque'].' - '.$list['numero_aula'].'</option>';  
+        }
+        echo $tabla;
+        break;
     default:
         echo "Acción no encontrada.";
         break;

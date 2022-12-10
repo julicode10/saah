@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Código <span class="text-orange">*</span></label>
-                                <input type="text" class="form-control" placeholder="Ingrese código del grupo ...">
+                                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese código del grupo ...">
                             </div>
                         </div>
                     </div>
@@ -18,31 +18,34 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Duración <span class="text-orange">*</span></label>
-                                <input type="number" class="form-control"
-                                       placeholder="Ingrese la duración del evento (en horas) ...">
+                                <input type="number" id="duracion" name="duracion" class="form-control"
+                                    placeholder="Ingrese la duración del evento (en horas) ...">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Cantidad estudiantes <span class="text-orange">*</span></label>
-                                <input type="number" class="form-control"
-                                    placeholder="Ingrese la cantidad de estudiantes del grupo ...">
+                                <label>objetivo <span class="text-orange">*</span></label>
+                                <input type="text" class="form-control" id="objetivo" name="objetivo"
+                                    placeholder="Ingrese el objetivo ...">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <!-- radio -->
-                            <label>Seleccione los grupos que van a asistir (opcional)</label>
+                            <label>Seleccione los grupos que van a asistir</label>
                             <div class="form-group section-form-grupos">
                                 
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center align-items-center">
-                        <button type="button" class="btn btn-outline-warning ">Guardar</button>
+                    <div class="row justify-content-center align-items-center mb-5">
+                        <button type="button" id="btn-submit" class="btn btn-outline-warning" onclick="guardarEvento()">Guardar
+                        </button>
+                        <button type="button" id="btn-clear" class="btn btn-outline-danger ml-2" onclick="limpiarFRMEvento()">Limpiar
+                        </button>
                     </div>
                     <!-- tabla eventos -->
                     <table id="table-eventos" class="table table-bordered table-striped mt-5">
@@ -73,5 +76,6 @@
 <script>
     $(document).ready(function () {
         listarSelectGrupos();
+        listarEventos();
     });
 </script>

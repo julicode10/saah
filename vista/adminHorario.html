@@ -7,45 +7,25 @@
         <div class="card-body">
             <form>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <label>Aula <span class="text-orange">*</span></label>
-                            <select class="form-control">
-                                <option selected>Seleccione aula</option>
-                                <option>K301</option>
-                                <option>N204</option>
-                                <option>L404</option>
-                                <option>O102</option>
+                            <select class="form-control" name="aula" id="aula">
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label>Docente <span class="text-orange">*</span></label>
-                            <select class="form-control">
-                                <option selected>Seleccione docente</option>
-                                <option>Juan Gonzalez</option>
-                                <option>Maria Lopez</option>
-                                <option>Oscar Estupiñan</option>
-                                <option>Pedro Upegui</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <label>Grupo <span class="text-orange">*</span></label>
-                            <select class="form-control">
-                                <option selected>Seleccione grupo</option>
-                                <option>5326334</option>
-                                <option>3634634</option>
-                                <option>746644</option>
-                                <option>677346</option>
+                            <select class="form-control" name="grupo" id="grupo">
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    
+                </div>
+                <div class="row">
+                    
+                    <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <label>Materia <span class="text-orange">*</span></label>
                             <select class="form-control">
@@ -54,6 +34,18 @@
                                 <option>56643- Programacion para la web con PHP</option>
                                 <option>635632 - Calculo diferencial</option>
                                 <option>64755 - Lengua Materna</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Docente <span class="text-orange">*</span></label>
+                            <select class="form-control">
+                                <option selected>Seleccione docente</option>
+                                <option>Juan Gonzalez</option>
+                                <option>Maria Lopez</option>
+                                <option>Oscar Estupiñan</option>
+                                <option>Pedro Upegui</option>
                             </select>
                         </div>
                     </div>
@@ -84,3 +76,9 @@
         <!-- /.card-body -->
     </div>
 </div><!-- /.container-fluid -->
+<script>
+    $(document).ready(function () {
+        listarSelectAulas();
+        listadoSelectGrupos();
+    });
+</script>

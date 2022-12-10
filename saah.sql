@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS saah 
+CREATE DATABASE IF NOT EXISTS saah; 
 -- phpMyAdmin SQL Dump
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `aulas`
 --
-
+use saah;
 CREATE TABLE `aulas` (
   `id` int(11) NOT NULL,
   `numero_aula` varchar(4) NOT NULL,
   `bloque` enum('K','L','M', 'N','O', 'P') NOT NULL,
-  `descripción` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `descripcion` varchar(1000) DEFAULT NULL
+);
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE `docentes` (
   `apellidos` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `eventos` (
   `codigo` varchar(50) NOT NULL,
   `duracion` double NOT NULL,
   `objetivo` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,7 @@ CREATE TABLE `eventos` (
 CREATE TABLE `evento_grupo` (
   `evento_id` int(11) NOT NULL,
   `grupo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ CREATE TABLE `grupos` (
   `codigo` varchar(50) NOT NULL,
   `numero_grupo` varchar(4) NOT NULL,
   `cantidad_estudiantes` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE `horarios` (
   `grupo_id` int(11) NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,7 @@ CREATE TABLE `materias` (
   `codigo` varchar(50) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `duracion_horas` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 --
 -- Indexes for dumped tables
@@ -217,8 +217,8 @@ ALTER TABLE `materias`
 -- Constraints for table `evento_grupo`
 --
 ALTER TABLE `evento_grupo`
-  ADD CONSTRAINT `fk_evento_grupo_evento1` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_evento_grupo_grupo1` FOREIGN KEY (`grupo_id`) REFERENCES `grupos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_evento_grupo_evento1` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`),
+  ADD CONSTRAINT `fk_evento_grupo_grupo1` FOREIGN KEY (`grupo_id`) REFERENCES `grupos` (`id`);
 
 --
 -- Constraints for table `horarios`
