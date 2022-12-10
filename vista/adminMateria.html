@@ -12,13 +12,13 @@
                           <!-- text input -->
                           <div class="form-group">
                               <label>Código<span class="text-orange">*</span></label>
-                              <input type="text" class="form-control" placeholder="Ingrese código de la materia ...">
+                              <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese código de la materia ...">
                           </div>
                       </div>
                       <div class="col-sm-12">
                           <div class="form-group">
                               <label>Nombre <span class="text-orange">*</span></label>
-                              <input type="text" class="form-control" placeholder="Ingrese el nombre de la materia ...">
+                              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre de la materia ...">
                           </div>
                       </div>
                   </div>
@@ -26,12 +26,15 @@
                       <div class="col-sm-12">
                           <div class="form-group">
                               <label>Duración en horas <span class="text-orange">*</span></label>
-                              <input type="number" class="form-control" placeholder="ingrese la duración de la materia en horas">
+                              <input type="number" id="duracion_horas" name="duracion_horas" class="form-control" placeholder="ingrese la duración de la materia en horas">
                           </div>
                       </div>
                   </div>
-                  <div class="row justify-content-center align-items-center">
-                      <button type="button" class="btn btn-outline-warning ">Guardar</button>
+                  <div class="row justify-content-center align-items-center mb-5">
+                    <button type="button" id="btn-submit" class="btn btn-outline-warning" onclick="guardarMateria()">Guardar
+                    </button>
+                    <button type="button" id="btn-clear" class="btn btn-outline-danger ml-2" onclick="limpiarFRMMateria()">Limpiar
+                    </button>
                   </div>
                 <table id="table-materias" class="table table-bordered table-striped mt-5">
                   <thead>
@@ -44,39 +47,6 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>53562333</td>
-                    <td>Programación para la web con php</td>
-                    <td>2</td>
-                    <td>
-                      <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                      <td>63555563</td>
-                      <td>Desarrollo de bases de datos</td>
-                      <td>4</td>
-                      <td>
-                          <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                      </td>
-                      <td>
-                          <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>63788908</td>
-                      <td>Servicios web</td>
-                      <td>2</td>
-                      <td>
-                          <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                      </td>
-                      <td>
-                          <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                      </td>
-                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -88,3 +58,9 @@
         </div>
         <!-- /.row -->
       </div>
+
+      <script>
+        $(document).ready(function () {
+            listarMaterias();
+        });
+    </script>

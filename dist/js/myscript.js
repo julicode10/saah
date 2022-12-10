@@ -19,10 +19,10 @@ function ch(urlHijo) {
                 //datatables('#table-docentes');
             }
             if(urlHijo === "vista/adminMateria.html"){
-                datatables('#table-materias');
+                //datatables('#table-materias');
             }
             if(urlHijo === "vista/adminEvento.html"){
-                datatables('#table-eventos');
+                //datatables('#table-eventos');
             }
         }
     });
@@ -479,5 +479,131 @@ function listarSelectGrupos(){
         }
     });
 }
+
+/** funciones para materias */
+function validarFormMateria(){
+    if($("#codigo").val() == ""){
+        toastr.warning("El código de materia no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#codigo").focus();       // Esta función coloca el foco de escritura del usuario en el campo Nombre directamente.
+        return false;
+    }
+    if($("#nombre").val() == ""){
+        toastr.warning("El campo nombre no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#nombre").focus();
+        return false;
+    }
+    if($("#duracion_horas").val() == ""){
+        toastr.warning("El campo duracion horas no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#duracion_horas").focus();
+        return false;
+    }
+    return true;
+}
+
+function limpiarFRMMateria(){
+    limpiarFRM('btn-submit', [
+        'codigo', 'nombre', 'duracion_horas'
+    ],'guardarMateria()')
+    listarMaterias()
+}
+
+function guardarMateria(){ 
+    if(validarFormMateria()){
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/materiaAjax.php",
+            data: {
+                "codigo": $('#codigo').val(),
+                "nombre": $('#nombre').val(),
+                "duracion_horas": $('#duracion_horas').val(),
+                "method": "g"
+            },
+            success: function (resp){
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMMateria()
+                listarMaterias()
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarMaterias();
+            }
+        });
+    }
+}
+
+function listarMaterias(){
+    listarRecurso("../../../saah/ajax/materiaAjax.php");
+}
+
+function editarMateria(id){
+    
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/materiaAjax.php",
+        data: {
+            "id": id,
+            "method": "e"
+        },
+        success: function (resp){
+            let materia = JSON.parse(resp);
+            document.querySelector('#btn-submit').innerHTML = 'Actualizar';
+            $('#btn-submit').removeAttr("onclick");
+            $('#btn-submit').attr("onclick", "actualizarMateria(" + materia.id+")");
+            $('#codigo').val(materia.codigo)
+            $('#nombre').val(materia.nombre)
+            $('#duracion_horas').val(materia.duracion_horas)
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function actualizarMateria(id){
+    if(validarFormMateria()) {
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/materiaAjax.php",
+            data: {
+                "codigo": $('#codigo').val(),
+                "nombre": $('#nombre').val(),
+                "duracion_horas": $('#duracion_horas').val(),
+                "id": id,
+                "method": "a"
+            },
+            success: function (resp) {
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMMateria()
+                listarMaterias()
+            },
+            fail: function (request, status, error) {
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarMaterias()
+            }
+        });
+    }
+}
+
+function eliminarMateria(id){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/materiaAjax.php",
+        data: {
+            "id": id,
+            "method": "d"
+        },
+        success: function (resp){
+            toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+            limpiarFRMMateria()
+            listarMaterias()
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            listarMaterias()
+        }
+    });
+}
+
+
 
 
