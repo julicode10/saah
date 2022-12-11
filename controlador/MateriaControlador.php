@@ -31,4 +31,9 @@ class MateriaControlador extends MateriaModelo
     {
         return MateriaModelo::eliminarMateriaModelo($id);
     }
+
+    public function getCantidadMateriasControlador()
+    {
+        return MateriaModelo::getCantidadMateriasModelo();
+    }
 }

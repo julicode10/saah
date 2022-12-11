@@ -72,4 +72,13 @@ class AulaModelo extends  PDODB
             return false;
         }
     }
+
+    protected static function getCantidadAulasModelo()
+    {
+        $con = new PDODB();
+        $sql = "SELECT COUNT(id) AS cantidad_de_aulas FROM aulas";
+        $res = $con->connect()->prepare($sql);
+        $res->execute();
+        return $res->fetch(PDO::FETCH_ASSOC);
+    }
 }

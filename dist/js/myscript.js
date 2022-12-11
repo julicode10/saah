@@ -49,6 +49,25 @@ function limpiarFRM(button, inputs, event){
     $(`#${button}`).attr("onclick", event);
 }
 
+function contadorRecursos(url, section){
+    if(url != null || url != undefined){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                "method": "c"
+            },
+            success: function (resp){
+                $(`.${section}`).empty();
+                $(`.${section}`).append(resp);
+            },
+            fail: function (request, status, error){
+                console.log(request);
+            }
+        });
+    }
+}
+
 function listarRecurso(url){
     if(url != null || url != undefined){
         $.ajax({
@@ -97,6 +116,10 @@ function listarOpcionesSelect(url, select , optionDefaul){
 }
 
 /** funciones para docentes */
+
+function contarDocentes(){
+    contadorRecursos("../../../saah/ajax/docenteAjax.php", "cantidad_docentes");
+}
 
 function guardarDocente(){ 
     if(validarFormDocente()){
@@ -266,6 +289,11 @@ function limpiarFRMAula(){
     listarAulas()
 }
 
+
+function contarAulas(){
+    contadorRecursos("../../../saah/ajax/aulaAjax.php", "cantidad_aulas");
+}
+
 function guardarAula(){ 
     if(validarFormAula()){
         $.ajax({
@@ -392,6 +420,10 @@ function limpiarFRMGrupo(){
     listarGrupos()
 }
 
+function contarGrupos(){
+    contadorRecursos("../../../saah/ajax/grupoAjax.php", "cantidad_grupos");
+}
+
 function guardarGrupo(){ 
     if(validarFormGrupo()){
         $.ajax({
@@ -516,6 +548,10 @@ function limpiarFRMMateria(){
         'codigo', 'nombre', 'duracion_horas'
     ],'guardarMateria()')
     listarMaterias()
+}
+
+function contarMaterias(){
+    contadorRecursos("../../../saah/ajax/materiaAjax.php", "cantidad_materias");
 }
 
 function guardarMateria(){ 

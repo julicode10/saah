@@ -32,4 +32,9 @@ class GrupoControlador extends GrupoModelo
     {
         return GrupoModelo::eliminarGrupoModelo($id);
     }
+
+    public function getCantidadGruposControlador()
+    {
+        return GrupoModelo::getCantidadGruposModelo();
+    }
 }

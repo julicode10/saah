@@ -72,4 +72,13 @@ class MateriaModelo extends  PDODB
             return false;
         }
     }
+
+    protected static function getCantidadMateriasModelo()
+    {
+        $con = new PDODB();
+        $sql = "SELECT COUNT(id) AS cantidad_de_materias FROM materias";
+        $res = $con->connect()->prepare($sql);
+        $res->execute();
+        return $res->fetch(PDO::FETCH_ASSOC);
+    }
 }

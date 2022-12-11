@@ -5,13 +5,13 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>40</h3>
+                    <h3 class="cantidad_materias">0</h3>
                     <p>Materias</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-book-open"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a onclick="ch('vista/adminMateria.html')" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -19,13 +19,13 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>25</h3>
+                    <h3 class="cantidad_aulas">0</h3>
                     <p>Aulas</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-school"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información<i class="fas fa-arrow-circle-right"></i></a>
+                <a onclick="ch('vista/adminAula.html')" class="small-box-footer">Más información<i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -33,26 +33,26 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3 class="cantidad_docentes">0</h3>
                     <p>Docentes</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-user-friends"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a onclick="ch('vista/adminDocente.html')" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3>50</h3>
+                    <h3 class="cantidad_grupos">0</h3>
                     <p>Grupos</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-user-graduate"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+                <a onclick="ch('vista/adminGrupo.html')" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -69,3 +69,11 @@
     </div>
     <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
+<script>
+    $(document).ready(function () {
+        contarMaterias();
+        contarAulas();
+        contarGrupos();
+        contarDocentes();
+    });
+</script>

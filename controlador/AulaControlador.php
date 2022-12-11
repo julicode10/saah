@@ -32,4 +32,9 @@ class AulaControlador extends AulaModelo
     {
         return AulaModelo::eliminarAulaModelo($codAula);
     }
+
+    public function getCantidadAulasControlador()
+    {
+        return AulaModelo::getCantidadAulasModelo();
+    }
 }

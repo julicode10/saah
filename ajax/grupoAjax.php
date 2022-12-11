@@ -86,6 +86,12 @@ switch ($method)
         }
         echo $tabla;
         break;
+    case 'c':
+        $res = $objGrupo->getCantidadGruposControlador();
+        foreach ($res as $val){
+            echo ($val);
+        }
+        break;
     default:
         echo "Acción no encontrada.";
         break;

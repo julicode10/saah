@@ -82,4 +82,13 @@ class DocenteModelo extends  PDODB
             return false;
         }
     }
+
+    protected static function getCantidadDocentesModelo()
+    {
+        $con = new PDODB();
+        $sql = "SELECT COUNT(id) AS cantidad_de_docentes FROM docentes";
+        $res = $con->connect()->prepare($sql);
+        $res->execute();
+        return $res->fetch(PDO::FETCH_ASSOC);
+    }
 }

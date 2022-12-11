@@ -80,11 +80,16 @@ class HorarioModelo extends  PDODB
 
     protected static function eliminarHorarioModelo($id)
     {
-        $con = new PDODB();
-        $sql = "DELETE FROM horarios WHERE id= :id";
-        $res = $con->connect()->prepare($sql);
-        $res->bindParam(':id', $id);
-        $res->execute();
-        return $res;
+        try{
+            $con = new PDODB();
+            $sql = "DELETE FROM horarios WHERE id= :id";
+            $res = $con->connect()->prepare($sql);
+            $res->bindParam(':id', $id);
+            $res->execute();
+            return $res;
+        }catch(Exception $e){
+            $e->getMessage();
+            return false;
+        }
     }
 }

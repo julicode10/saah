@@ -75,6 +75,12 @@ switch ($method)
         }
         echo $tabla;
         break;
+    case 'c':
+        $res = $objAula->getCantidadAulasControlador();
+        foreach ($res as $val){
+            echo ($val);
+        }
+        break;
     default:
         echo "Acción no encontrada.";
         break;

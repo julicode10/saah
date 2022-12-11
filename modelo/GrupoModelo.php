@@ -72,4 +72,13 @@ class GrupoModelo extends  PDODB
             return false;
         }
     }
+
+    protected static function getCantidadGruposModelo()
+    {
+        $con = new PDODB();
+        $sql = "SELECT COUNT(id) AS cantidad_de_grupos FROM grupos";
+        $res = $con->connect()->prepare($sql);
+        $res->execute();
+        return $res->fetch(PDO::FETCH_ASSOC);
+    }
 }

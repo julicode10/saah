@@ -33,4 +33,9 @@ class DocenteControlador extends DocenteModelo
     {
         return DocenteModelo::eliminarDocenteModelo($codDocente);
     }
+
+    public function getCantidadDocentesControlador()
+    {
+        return DocenteModelo::getCantidadDocentesModelo();
+    }
 }
