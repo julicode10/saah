@@ -68,6 +68,34 @@ function listarRecurso(url){
     }
 }
 
+function listarOpcionesSelect(url, select , optionDefaul){
+    if((url != null || url != undefined) && (select != null || select != undefined)){
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                "method": "s"
+            },
+            success: function (resp){
+                $(`${select}`).empty();
+                if(resp.length > 0){
+                    
+                    $(`${select}`).append(`<option value="">${optionDefaul}</option>`);
+                    $(`${select}`).append(resp);
+                }else{
+                    $(`${select}`).append(`<option value="">${optionDefaul}</option>`);
+                    $(`${select}`).append(`<option value="">No se encontraron resultados</option>`);
+                }
+                
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            }
+        });
+    }
+    
+}
+
 /** funciones para docentes */
 
 function guardarDocente(){ 
@@ -587,6 +615,174 @@ function eliminarMateria(id){
     });
 }
 
+/** funciones para horario */
+
+function listarSelectAulas(){
+    listarOpcionesSelect("../../../saah/ajax/aulaAjax.php","#aula", "Seleccione el aula");    
+}
+
+function listadoSelectGrupos(){
+    listarOpcionesSelect("../../../saah/ajax/grupoAjax.php", "#grupo", "Seleccione el grupo");
+}
+
+function listarSelectMaterias(){
+    listarOpcionesSelect("../../../saah/ajax/materiaAjax.php", "#materia", "Seleccione la materia");
+}
+
+function listarSelectDocentes(){
+    listarOpcionesSelect("../../../saah/ajax/docenteAjax.php", "#docente", "Seleccione el docente");
+}
+
+function validarFormHorario(){
+    if($("#aula").val() == ""){
+        toastr.warning("El campo aula no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#aula").focus();       // Esta función coloca el foco de escritura del usuario en el campo Nombre directamente.
+        return false;
+    }
+    if($("#grupo").val() == ""){
+        toastr.warning("El campo grupo no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#grupo").focus();
+        return false;
+    }
+    if($("#materia").val() == ""){
+        toastr.warning("El campo materia no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#materia").focus();
+        return false;
+    }
+    if($("#docente").val() == ""){
+        toastr.warning("El campo docente no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#docente").focus();
+        return false;
+    }
+    if($("#hora_inicio").val() == ""){
+        toastr.warning("El campo hora inicio no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#hora_inicio").focus();
+        return false;
+    }
+    if($("#hora_fin").val() == ""){
+        toastr.warning("El campo hora fin no puede estar vacío.", '¡Cuidado!', {timeOut: 5000, "progressBar": true})
+        $("#hora_fin").focus();
+        return false;
+    }
+    return true;
+}
+
+function limpiarFRMHorario(){
+    limpiarFRM('btn-submit', [
+        'aula', 'grupo', 'materia','docente', 'hora_inicio', 'hora_fin'
+    ],'guardarHorario()')
+    listarHorarios()
+}
+
+function guardarHorario(){ 
+    if(validarFormHorario()){
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/horarioAjax.php",
+            data: {
+                "aula": $('#aula').val(),
+                "grupo": $('#grupo').val(),
+                "materia": $('#materia').val(),
+                "docente": $('#docente').val(),
+                "hora_inicio": $('#hora_inicio').val(),
+                "hora_fin": $('#hora_fin').val(),
+                "method": "g"
+            },
+            success: function (resp){
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMHorario()
+                listarHorarios()
+            },
+            fail: function (request, status, error){
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarHorarios();
+            }
+        });
+    }
+}
+
+function listarHorarios(){
+    listarRecurso("../../../saah/ajax/horarioAjax.php");
+}
+
+function editarHorario(id){
+    
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/horarioAjax.php",
+        data: {
+            "id": id,
+            "method": "e"
+        },
+        success: function (resp){
+            if(resp != null || resp != undefined){
+                let horario = JSON.parse(resp);
+                document.querySelector('#btn-submit').innerHTML = 'Actualizar';
+                $('#btn-submit').removeAttr("onclick");
+                $('#btn-submit').attr("onclick", "actualizarHorario(" + horario.id+")");
+                $("#aula option[value="+ horario.aula_id +"]").attr("selected",true);
+                $("#docente option[value="+ horario.docente_id +"]").attr("selected",true);
+                $("#materia option[value="+ horario.materia_id +"]").attr("selected",true);
+                $("#grupo option[value="+ horario.grupo_id +"]").attr("selected",true);
+                $('#hora_inicio').val(horario.hora_inicio)
+                $('#hora_fin').val(horario.hora_fin)
+            }
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function actualizarHorario(id){
+    if(validarFormHorario()) {
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/horarioAjax.php",
+            data: {
+                "aula": $('#aula').val(),
+                "docente": $('#docente').val(),
+                "materia": $('#materia').val(),
+                "grupo": $('#grupo').val(),
+                "hora_inicio": $('#hora_inicio').val(),
+                "hora_fin": $('#hora_fin').val(),
+                "id": id,
+                "method": "a"
+            },
+            success: function (resp) {
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMHorario()
+                listarHorarios()
+            },
+            fail: function (request, status, error) {
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarHorarios()
+            }
+        });
+    }
+}
+
+function eliminarHorario(id){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/horarioAjax.php",
+        data: {
+            "id": id,
+            "method": "d"
+        },
+        success: function (resp){
+            toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+            limpiarFRMHorario()
+            listarHorarios()
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            listarHorarios()
+        }
+    });
+}
+
+
 /** funciones para evento */
 
 function listarSelectGrupos(){
@@ -674,46 +870,5 @@ function guardarEvento(){
 function listarEventos(){
     listarRecurso("../../../saah/ajax/eventoAjax.php");
 }
-
-
-/** funciones para horario */
-
-function listarSelectAulas(){
-    $.ajax({
-        type: "POST",
-        url: "../../../saah/ajax/aulaAjax.php",
-        data: {
-            "method": "s"
-        },
-        success: function (resp){
-            $("#aula").empty();
-            $('#aula').append('<option value="">Seleccione el aula</option>');
-            $("#aula").append(resp);
-        },
-        fail: function (request, status, error){
-            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
-        }
-    });
-}
-
-function listadoSelectGrupos(){
-    $.ajax({
-        type: "POST",
-        url: "../../../saah/ajax/grupoAjax.php",
-        data: {
-            "method": "s"
-        },
-        success: function (resp){
-            $("#grupo").empty();
-            $('#grupo').append('<option value="">Seleccione el grupo</option>');
-            $("#grupo").append(resp);
-        },
-        fail: function (request, status, error){
-            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
-        }
-    });
-}
-
-
 
 

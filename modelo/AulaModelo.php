@@ -60,11 +60,16 @@ class AulaModelo extends  PDODB
 
     protected static function eliminarAulaModelo($codigoAula)
     {
-        $con = new PDODB();
-        $sql = "DELETE FROM aulas WHERE id= :id";
-        $res = $con->connect()->prepare($sql);
-        $res->bindParam(':id', $codigoAula);
-        $res->execute();
-        return $res;
+        try{
+            $con = new PDODB();
+            $sql = "DELETE FROM aulas WHERE id= :id";
+            $res = $con->connect()->prepare($sql);
+            $res->bindParam(':id', $codigoAula);
+            $res->execute();
+            return $res;
+        }catch(Exception $e){
+            $e->getMessage();
+            return false;
+        }
     }
 }

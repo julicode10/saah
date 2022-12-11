@@ -70,12 +70,16 @@ class DocenteModelo extends  PDODB
 
     protected static function eliminarDocenteModelo($codigoDocente)
     {
-        $con = new PDODB();
-        $sql = "DELETE FROM docentes WHERE id= :id";
-        $res = $con->connect()->prepare($sql);
-        $res->bindParam(':id', $codigoDocente);
-        $res->execute();
-        return $res;
+        try{
+            $con = new PDODB();
+            $sql = "DELETE FROM docentes WHERE id= :id";
+            $res = $con->connect()->prepare($sql);
+            $res->bindParam(':id', $codigoDocente);
+            $res->execute();
+            return $res;
+        }catch(Exception $e){
+            $e->getMessage();
+            return false;
+        }
     }
-
 }

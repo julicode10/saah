@@ -5,80 +5,87 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form>
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <label>Aula <span class="text-orange">*</span></label>
-                            <select class="form-control" name="aula" id="aula">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <label>Grupo <span class="text-orange">*</span></label>
-                            <select class="form-control" name="grupo" id="grupo">
-                            </select>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="row">
-                    
-                    <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <label>Materia <span class="text-orange">*</span></label>
-                            <select class="form-control">
-                                <option selected>Seleccione materia</option>
-                                <option>64364 - Redes LAN</option>
-                                <option>56643- Programacion para la web con PHP</option>
-                                <option>635632 - Calculo diferencial</option>
-                                <option>64755 - Lengua Materna</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <label>Docente <span class="text-orange">*</span></label>
-                            <select class="form-control">
-                                <option selected>Seleccione docente</option>
-                                <option>Juan Gonzalez</option>
-                                <option>Maria Lopez</option>
-                                <option>Oscar Estupiñan</option>
-                                <option>Pedro Upegui</option>
-                            </select>
-                        </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label>Aula <span class="text-orange">*</span></label>
+                        <select class="form-control" name="aula" id="aula">
+                        </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Hora inicio <span class="text-orange">*</span></label>
-                            <input type="time" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Hora fin <span class="text-orange">*</span></label>
-                            <input type="time" class="form-control">
-                        </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label>Grupo <span class="text-orange">*</span></label>
+                        <select class="form-control" name="grupo" id="grupo">
+                        </select>
                     </div>
                 </div>
+                
+            </div>
+            <div class="row">
+                
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label>Materia <span class="text-orange">*</span></label>
+                        <select class="form-control" name="materia" id="materia">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label>Docente <span class="text-orange">*</span></label>
+                        <select class="form-control" name="docente" id="docente">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Hora inicio <span class="text-orange">*</span></label>
+                        <input type="time" class="form-control" name="hora_inicio" id="hora_inicio">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Hora fin <span class="text-orange">*</span></label>
+                        <input type="time" class="form-control" name="hora_fin" id="hora_fin">
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center mb-5">
+                <button type="button" id="btn-submit" class="btn btn-outline-warning" onclick="guardarHorario()">Guardar
+                </button>
+                <button type="button" id="btn-clear" class="btn btn-outline-danger ml-2" onclick="limpiarFRMHorario()">Limpiar
+                </button>
+            </div>
+            <table id="table-horarios" class="table table-bordered table-striped mt-5">
+                <thead>
+                <tr>
+                    <th>Hora Inicio</th>
+                    <th>Hora fin</th>
+                    <th>Aula</th>
+                    <th>Grupo</th>
+                    <th>Materia</th>
+                    <th>Docente</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
 
-                <div class="row mt-4 float-right">
-                    <div class="col-sm-12">
-                        <button class="btn btn-outline-warning">Guardar</button>
-                    </div>
-                </div>
-
-            </form>
+                </tbody>
+            </table>
         </div>
         <!-- /.card-body -->
     </div>
 </div><!-- /.container-fluid -->
 <script>
     $(document).ready(function () {
+        listarHorarios();
         listarSelectAulas();
         listadoSelectGrupos();
+        listarSelectMaterias(); 
+        listarSelectDocentes(); 
     });
 </script>

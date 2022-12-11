@@ -67,6 +67,14 @@ switch ($method)
             echo "No fue eliminado.";
         }
         break;
+    case 's':
+        $lists = $objMateria->listarMateriaControlador();
+        $tabla = '';
+        foreach ($lists as $list){
+            $tabla.= '<option  value="'.$list['id'].'">'.$list['codigo'].' - '.$list['nombre'].'</option>';  
+        }
+        echo $tabla;
+        break;
     default:
         echo "Acción no encontrada.";
         break;

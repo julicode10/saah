@@ -60,11 +60,16 @@ class GrupoModelo extends  PDODB
 
     protected static function eliminarGrupoModelo($id)
     {
-        $con = new PDODB();
-        $sql = "DELETE FROM grupos WHERE id= :id";
-        $res = $con->connect()->prepare($sql);
-        $res->bindParam(':id', $id);
-        $res->execute();
-        return $res;
+        try{
+            $con = new PDODB();
+            $sql = "DELETE FROM grupos WHERE id= :id";
+            $res = $con->connect()->prepare($sql);
+            $res->bindParam(':id', $id);
+            $res->execute();
+            return $res;
+        }catch(Exception $e){
+            $e->getMessage();
+            return false;
+        }
     }
 }
