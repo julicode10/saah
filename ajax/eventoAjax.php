@@ -12,10 +12,7 @@ switch ($method)
 {
     case 'g':
         if(!empty($_POST['grupos']) && is_array($_POST['grupos'])){
-            // Bucle para almacenar y mostrar los valores de la casilla de verificación comprobación individual.
-            // foreach($_POST['grupos'] as $selected){
-            //     echo $selected."</br>";
-            // }
+            
             $objEvento->codigo = $_POST['codigo'];
             $objEvento->duracion = $_POST['duracion'];
             $objEvento->objetivo = $_POST['objetivo'];
@@ -54,5 +51,45 @@ switch ($method)
                         </tr>';  
         }
         echo $tabla;
+    
+        break;
+    case 'e':
+        $res = $objEvento->editarEventoControlador($objEvento->id);
+        foreach ($res as $val){
+            echo json_encode($val);
+        }
+        break;
+    case 'a':
+        if(!empty($_POST['grupos']) && is_array($_POST['grupos'])){
+            $objEvento->codigo = $_POST['codigo'];
+            $objEvento->duracion = $_POST['duracion'];
+            $objEvento->objetivo = $_POST['objetivo'];
+            $data = array(); 
+            foreach($_POST['grupos'] as $selected){
+                array_push($data, $selected);
+            }
+            $objEvento->grupos = $data;
+            $res = $objEvento->actualizarEventoControlador($objEvento);
+            if($res){
+                echo "actualizado correctamente.";
+            }
+            else{
+                echo "No fue actualizado.";
+            }
+        }else{
+            echo "Selecciona por lo menos un grupo.";
+        }
+        break;
+    case 'd':
+        $res = $objEvento->eliminarEventoControlador($objEvento->id);
+        if($res){
+            echo "Eliminado correctamente.";
+        }
+        else{
+            echo "No fue eliminado.";
+        }
+        break;
+        default:
+        echo "Acción no encontrada.";
         break;
 }

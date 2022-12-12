@@ -872,6 +872,7 @@ function limpiarFRMEvento(){
     limpiarFRM('btn-submit', [
         'codigo', 'duracion', 'objetivo'
     ],'guardarEvento()')
+    $('input[type=checkbox]').prop('checked',false);
     listarEventos()
 }
 
@@ -906,5 +907,92 @@ function guardarEvento(){
 function listarEventos(){
     listarRecurso("../../../saah/ajax/eventoAjax.php");
 }
+
+function editarEvento(id){
+    
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/eventoAjax.php",
+        data: {
+            "id": id,
+            "method": "e"
+        },
+        success: function (resp){
+            
+            
+            if(resp != null || resp != undefined){
+                
+                let horario = JSON.parse(resp);
+                
+                
+                document.querySelector('#btn-submit').innerHTML = 'Actualizar';
+                $('#btn-submit').removeAttr("onclick");
+                $('#btn-submit').attr("onclick", "actualizarEvento(" + horario.id+")");
+                horario.grupos_id.split(',').forEach(function(val){
+                    if(val =  $(`#grupos-${val}`).val()){
+                        $(`#grupos-${val}`).prop('checked',true);
+                    }
+                })
+                $('#codigo').val(horario.codigo)
+                $('#duracion').val(horario.duracion)
+                $('#objetivo').val(horario.objetivo)
+                
+            }
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+        }
+    });
+}
+
+function actualizarEvento(id){
+    if(validarFormEvento()) {
+        $.ajax({
+            type: "POST",
+            url: "../../../saah/ajax/eventoAjax.php",
+            data: {
+                "codigo": $('#codigo').val(),
+                "duracion": $('#duracion').val(),
+                "objetivo": $('#objetivo').val(),
+                "grupos": $("input[name='grupos[]']:checked").map(function () {
+                    return this.value;
+                }).get(),
+                "id": id,
+                "method": "a"
+            },
+            success: function (resp) {
+                console.log(resp);
+                toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+                limpiarFRMEvento()
+                listarEventos()
+            },
+            fail: function (request, status, error) {
+                toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+                listarEventos()
+            }
+        });
+    }
+}
+
+function eliminarEvento(id){
+    $.ajax({
+        type: "POST",
+        url: "../../../saah/ajax/eventoAjax.php",
+        data: {
+            "id": id,
+            "method": "d"
+        },
+        success: function (resp){
+            toastr.success(resp, '¡Éxito!', {timeOut: 5000, "progressBar": true})
+            limpiarFRMEvento()
+            listarEventos()
+        },
+        fail: function (request, status, error){
+            toastr.error(request.responseText, 'Solicitud faillda', {timeOut: 5000, "progressBar": true})
+            listarEventos()
+        }
+    });
+}
+
 
 

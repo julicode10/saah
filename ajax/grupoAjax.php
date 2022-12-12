@@ -72,8 +72,8 @@ switch ($method)
         $items = '';
         foreach ($lists as $list){
             $items.= '<div class="form-check">
-                        <input class="form-check-input" name="grupos[]" id="grupos-'.$list['codigo'].'" value="'.$list['id'].'" type="checkbox">
-                        <label for="grupos-'.$list['codigo'].'" class="form-check-label">'.$list['codigo'] .' - '.$list['numero_grupo'] .'</label>
+                        <input class="form-check-input" name="grupos[]" id="grupos-'.$list['id'].'" value="'.$list['id'].'" type="checkbox">
+                        <label for="grupos-'.$list['id'].'" class="form-check-label">'.$list['codigo'] .' - '.$list['numero_grupo'] .'</label>
                     </div>';  
         }
         echo $items;

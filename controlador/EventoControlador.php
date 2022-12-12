@@ -31,4 +31,34 @@ class EventoControlador extends EventoModelo
     {
         return EventoModelo::listarEventosModelo();
     }
+
+    public function editarEventoControlador($id)
+    {
+        return EventoModelo::editarEventoModelo($id);
+    }
+
+    public function actualizarEventoControlador(EventoControlador $datos)
+    {
+        $respuesta =  EventoModelo::actualizarEventoModelo($datos);
+        
+        foreach($respuesta as $res){
+            if($res != false){
+                $ultimo = $res["id"];
+                EventoGrupoModelo::eliminarEventoGrupoModelo($res["id"]);
+                foreach($datos->grupos as $grupo){
+                    EventoGrupoModelo::guardarEventoGrupoModelo($ultimo, $grupo);
+                }
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function eliminarEventoControlador($id)
+    {
+        EventoGrupoModelo::eliminarEventoGrupoModelo($id);
+        return EventoGrupoModelo::eliminarEventoGrupoModelo($id);
+        
+    }
 }
